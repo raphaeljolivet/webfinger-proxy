@@ -3,6 +3,7 @@
 from config import *
 from flask import Flask, request, Response
 import requests
+import re
 
 app = Flask(__name__)
 
@@ -49,8 +50,11 @@ def webfinger():
     headers = [(name, value) for (name, value) in resp.raw.headers.items()
                if name.lower() not in excluded_headers]
 
-    out=resp.text
-    out = out.replace(remote_resource, request_resource)
+    out = resp.text
+
+    remote_resource_re = re.compile(re.escape(remote_resource), re.IGNORECASE)
+
+    out = remote_resource_re.sub(request_resource, out)
 
     return Response(out, resp.status_code, headers)
 
