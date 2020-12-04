@@ -8,6 +8,7 @@ app = Flask(__name__)
 
 # Ensure no trailing slashes
 REMOTE_BASE_URL = ("https" if REMOTE_HTTPS else "http") + "://" + REMOTE_HOST
+BASE_URL = ("https" if HTTPS else "http") + "://" + HOST
 
 WELL_KNOWN_BASE="/.well-known/"
 
@@ -22,12 +23,8 @@ def host_meta():
         data=request.get_data(),
         allow_redirects=False)
 
-    print(request.host)
-
-    new_root = request.url_root.strip("/")
     output = resp.text
-
-    output = output.replace(REMOTE_BASE_URL, new_root)
+    output = output.replace(REMOTE_BASE_URL, BASE_URL)
 
     excluded_headers = ['content-encoding', 'content-length', 'transfer-encoding', 'connection']
     headers = [(name, value) for (name, value) in resp.raw.headers.items()
@@ -40,7 +37,7 @@ def host_meta():
 def webfinger():
 
     request_resource = request.args.get("resource")
-    remote_resource = request_resource.replace(request.host, REMOTE_HOST)
+    remote_resource = request_resource.replace(HOST, REMOTE_HOST)
 
     resp = requests.request("GET",
         url=REMOTE_BASE_URL + WELL_KNOWN_BASE + "webfinger",
