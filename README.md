@@ -10,10 +10,11 @@ This app point any handle `<foo>@<your-domain.tld>` to `<foo>@<shared-instance.t
 # Setup 
 
 Run this flask app on a custom local port :
-
-  pip install -r requirements.txt
-  export FLASK_RUN_PORT=nnnn
-  flask run
+```
+> pip install -r requirements.txt
+> export FLASK_RUN_PORT=nnnn
+> flask run
+```
 
 (For real production deployment, consider using WGSI instead.)
 
