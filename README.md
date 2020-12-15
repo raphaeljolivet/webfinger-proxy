@@ -1,7 +1,9 @@
 # WARNING - EDIT
 
-Ad per Mastodon developpers, this is not supproted yet, and might cause issues on the servers.
+As per Mastodon developpers, this is not supproted yet, and might cause issues on the servers
 Please don't use it on production servers until further notice.
+
+See : https://github.com/tootsuite/mastodon/issues/2668
 
 
 # Purpose 
